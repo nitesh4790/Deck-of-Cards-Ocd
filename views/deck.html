@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+		<html ng-app="cardApp">
+		<head>
+			<title>Angular Card Sorting Exercise</title>
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<style>
+			#div1{
+				   display:inline;
+				   margin:1px;
+			}
+		.drag1 {
+  border: 1px solid black;
+  margin-left: 20px;
+  margin-top: 20px;
+  display:inline-block;
+  float: left;
+}
+		.container{
+			clear:left;
+			margin-top: 30px;
+		}
+
+			.div3,.div4,.div5,.div6{
+				display:inline-block;
+  				float: left;
+				border:1px solid black;
+				width:550px;
+				height:180px;
+				margin:10px;
+				margin-top: 50px;
+				
+		}
+			
+		</style>
+		<script>
+			function allowDrop(ev) {
+				ev.preventDefault();
+			}
+			
+			function drag(ev) {
+				ev.dataTransfer.setData("text", ev.target.id);
+			}
+			
+			function drop(ev) {
+				ev.preventDefault();
+				var data = ev.dataTransfer.getData("text");
+				//console.log(data);
+				//console.log(ev.target.id);
+				var dataGroup = data.split("-")[0];
+				if(dataGroup == ev.target.id){
+					ev.target.appendChild(document.getElementById(data));
+				}
+				else{
+					return;
+				}
+				
+				
+			}
+			</script>
+		</head>
+		<body>
+		
+			<div ng-controller="cardCtrl">
+		
+				<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" ng-repeat="card in cards | orderBy:random">
+					<div draggable="true" ondragstart="drag(event)" class="drag1" ng-attr-id="{{card.name}}" ng-model="card_name" draggable="true">{{card.name}}</div>
+				</div>
+		 <div class="container">
+		<div class="row">
+			<div id="spade" class="div3 col-sm-4" ondrop="drop(event)" ondragover="allowDrop(event)">spade</div>
+			<div id="diamond" class="div4 col-sm-4" ondrop="drop(event)" ondragover="allowDrop(event)">diamond</div>
+			<div id="heart" class="div5 col-sm-4" ondrop="drop(event)" ondragover="allowDrop(event)">heart</div>
+			<div id="club" class="div6 col-sm-4" ondrop="drop(event)" ondragover="allowDrop(event)">club</div>
+		</div>
+			
+		
+		 </div>
+				
+				<!-- shuffle and sort buttons -->
+				<div class="buttons">
+					<input class="btn btn-default btn-lg" type="submit" value="Shuffle" ng-click="shuffle()" />
+				</div>
+				<div class="buttons">
+						<input class="btn btn-default btn-lg" type="submit" value="Reset" ng-click="reset()" />
+					</div>
+					<form action='/deck/logout' action='GET'>
+						<button id="logout">Logout</button>
+						</form>
+			</div>
+		
+			<!-- our js and any other script dependencies -->
+			<script>
+			// console.log("we're connected");
+			
+			(function () { 
+			
+				var app = angular.module('cardApp', [])
+			
+				app.controller('cardCtrl', ['$scope', function($scope) {
+					$scope.cards = 
+					[
+						//Spade Suit
+						{
+							name: "diamond-2"
+						},
+						{
+							name: "club-8"
+						},
+						{
+							name: "spade-8"
+						},
+						{
+							name: "spade-k"
+						},
+						{
+							name: "club-10"
+						},
+						{
+							name: "heart-a"
+						},
+						{
+							name: "diamond-6"
+						},
+						{
+							name: "club-4"
+						},
+						{
+							name: "heart-7"
+						},
+						{
+							name: "diamond-4"
+						},
+						{
+							name: "diamond-7"
+						},
+						{
+							name: "heart-k"
+						},
+						{
+							name: "spade-10"
+						},
+						//Diamond Suit
+						{
+					        name: "heart-4"
+							
+						},
+						{
+					        name: "club-k"
+						},
+						{
+					        name: "club-5"
+						},
+						{
+					        name: "spade-6"
+						},
+						{
+					        name: "heart-5"
+						},
+						{
+					        name: "club-9"
+						},
+						{
+					        name: "heart-3"
+						},
+						{
+					        name: "heart-q"
+						},
+						{
+					        name: "heart-j"
+						},
+						{
+					        name: "spade-4"
+						},
+						{
+					        name: "spade-3"
+						},
+						{
+					        name: "heart-8"
+						},
+						{
+					        name: "spade-7"
+						},
+					
+						{
+							name: "heart-9"
+						},
+						{
+							name: "diamond-8"
+						},
+						{
+							name: "heart-6"
+						},
+						{
+							name: "heart-10"
+						},
+						{
+							name: "diamond-10"
+						},
+						{
+							name: "spade-q"
+						},
+						{
+							name: "spade-9"
+						},
+						{
+							name: "club-6"
+						},
+						{
+							name: "heart-2"
+						},
+						{
+							name: "club-3"
+						},
+						{
+							name: "club-q"
+						},
+						{
+							name: "spade-5"
+						},
+						{
+							name: "diamond-k"
+						},
+			
+						{
+							name: "diamond-3"
+						},
+						{
+							name: "diamond-j"
+						},
+						{
+							name: "diamond-q"
+						},
+						{
+							name: "club-7"
+						},
+						{
+							name: "diamond-5"
+						},
+						{
+							name: "club-2"
+						},
+						{
+							name: "spade-a"
+						},
+						{
+							name: "diamond-a"
+						},
+						{
+							name: "diamond-9"
+						},
+						{
+							name: "spade-2"
+						},
+						{
+							name: "spade-j"
+						},
+						{
+							name: "club-a"
+						},
+						{
+							name: "club-j"
+						}
+					]
+			
+					$scope.shuffle = function () {
+						//console.log("this is shuffle");
+						$scope.random = function() {
+							return 0.5 - Math.random();
+						}
+					};
+					$scope.reset = function () {
+						//console.log("this is shuffle");
+						$scope.random = function() {
+							return 0.5 - Math.random();
+						}
+					};
+				}]);
+			
+			})();
+			
+			
+		</script>			
+		</body>
+		
+		</html>
+
+	
